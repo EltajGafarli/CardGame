@@ -5,6 +5,7 @@
 // if you have an better/other solution here, you may implent your own!!!
 
 let _unopendBoosters = [];
+let _openedBoosters = []
 
 const _MAX_BOOSTER_VERSIONS = 3;
 
@@ -36,7 +37,7 @@ function initBoostersPage(){
 
 function openedBoosters() {
     let booster = getBooster();
-
+    _openedBoosters = booster;
 
 
     let id = 0;
@@ -59,3 +60,8 @@ function openedBoosters() {
     document.getElementById("openedBooster").innerHTML = openedBoosterHTML;
 }
 
+
+function getOpenedBoosters() {
+    console.log("Opened Boosters", _openedBoosters)
+    return _openedBoosters;
+}

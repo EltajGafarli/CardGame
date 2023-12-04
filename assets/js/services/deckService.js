@@ -7,7 +7,20 @@ let _deck = [];
 
 // Retrieves a sorted list of cards from the card pool, filtered by a search string and types.
 function getFilteredCardPool(search, types){
-    
+
+
+    _cardPool = getOpenedBoosters();
+
+    let cards = []
+
+    for(let card of _cardPool) {
+        if(card.name.includes(search) || card.rarity.includes(search) || card.card_face.oracle_text.includes(search)) {
+            cards.push(card);
+        }
+    }
+
+
+    return cards;
 }
 
 // Retrieves a sorted list of cards from the deck, filtered by a search string and types.

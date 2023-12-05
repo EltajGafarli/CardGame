@@ -62,6 +62,5 @@ function openedBoosters() {
 
 
 function getOpenedBoosters() {
-    console.log("Opened Boosters", _openedBoosters)
     return _openedBoosters;
 }

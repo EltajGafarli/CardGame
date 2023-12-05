@@ -13,9 +13,16 @@ function getFilteredCardPool(search, types){
 
     let cards = []
 
+
     for(let card of _cardPool) {
-        if(card.name.includes(search) || card.rarity.includes(search) || card.card_face.oracle_text.includes(search)) {
-            cards.push(card);
+        if(search === "" || card.name.includes(search) || card.rarity.includes(search) || card.card_face.oracle_text.includes(search)) {
+            const result = card.colors.every(val => search.includes(val));
+            if(result) {
+                cards.push(card);
+
+            } else {
+                cards.push(card);
+            }
         }
     }
 

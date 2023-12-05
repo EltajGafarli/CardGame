@@ -70,13 +70,13 @@
 }
 */
 
-#deck-building  ul.cards li:hover img{
-    border: 0.125rem solid #ccc;
-    position: absolute;
-    width: 20rem;
-    margin-left: -5rem;
-    margin-top: -5rem;
-}
+/*#deck-building  ul.cards li:hover img{*/
+/*    border: 0.125rem solid #ccc;*/
+/*    position: absolute;*/
+/*    width: 20rem;*/
+/*    margin-left: -5rem;*/
+/*    margin-top: -5rem;*/
+/*}*/
 
 
 

@@ -31,7 +31,8 @@ function renderCardPool(){
 
     cards = getFilteredCardPool(search, types);
 
-    console.log('Types: ', types);
+
+
 
     cardsToHTML(cards);
 
@@ -43,14 +44,11 @@ function renderCardPool(){
 
             // Perform filtering based on the selected mana types
 
-            types = Array.from(document.querySelectorAll('.mana.selected'))
+            types = Array.from(document.querySelectorAll('#deck-building .popup .container .builder .card-pool header .filter .manas .selected'))
                 .map(selectedButton => selectedButton.getAttribute('data-mana'));
 
             cards = getFilteredCardPool(search, types);
 
-
-            console.log(`Types inside Mana: ${types}`)
-            console.log(cards)
 
             cardsToHTML(cards);
         });
@@ -62,6 +60,7 @@ function renderCardPool(){
         let deckBuilding = document.querySelector("#deck-building .popup .container .scrollable");
 
         cards = getFilteredCardPool(this.value, types);
+        cardsToHTML(cards);
 
 
     });
@@ -98,7 +97,7 @@ function getTypes(manaButtons) {
 
     let types = [];
     manaButtons.forEach(button => {
-        types = Array.from(document.querySelectorAll('#deck-building .popup .container .builder .card-pool header .filter .manas.selected'))
+        types = Array.from(document.querySelectorAll('#deck-building .popup .container .builder .card-pool header .filter .manas .selected'))
             .map(selectedButton => selectedButton.getAttribute('data-mana'));
 
     });

@@ -29,7 +29,17 @@ function initBoostersPage(){
 
     document.querySelector("#unopenedBoosters").innerHTML = _unopendBoostersHTML;
     loadSet(set);
-    openedBoosters();
+
+    let openedBoostersElement = document.getElementById("openedBooster");
+    openedBoostersElement.innerHTML = "";
+    let unOpenedBoostersElement = document.querySelectorAll("#unopenedBoosters li");
+    console.log(unOpenedBoostersElement)
+    unOpenedBoostersElement.forEach(button => button.addEventListener('click', function (){
+        button.innerHTML = `<img src="images/ala/booster_v0.jpg" alt="booster" title="booster"
+                                                        data-booster="1" data-open="0">`
+
+        openedBoosters()
+    }));
 }
 
 
@@ -37,7 +47,7 @@ function initBoostersPage(){
 
 function openedBoosters() {
     let booster = getBooster();
-    _openedBoosters = booster;
+    _openedBoosters.push(...booster);
 
 
     let id = 0;

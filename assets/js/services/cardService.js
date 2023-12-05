@@ -51,10 +51,10 @@ function getBooster(){
         if (structure.hasOwnProperty(rarity)) {
 
             const numberOfCards = structure[rarity];
-            let randomCards = getRandomCards(rarity, numberOfCards);
+            let randomCards = getRandomBooster(rarity, numberOfCards);
             if(rarity === "wildcard") {
                 let randomRarity = getRandomRarity();
-                randomCards = getRandomCards(randomRarity, numberOfCards);
+                randomCards = getRandomBooster(randomRarity, numberOfCards);
 
             }
             boosterPack.push(...randomCards);
@@ -136,4 +136,19 @@ function getRandomRarity() {
     const rarities = ["common", "uncommon", "rare"];
 
     return rarities[getRandomNumber(rarities.length)];
+}
+
+function getRandomBooster(rarity, nrOfCards) {
+    const cardsOfRarityObject = getCardListByRarity();
+    const cardsOfRarity = cardsOfRarityObject[rarity] || [];
+
+
+    // Exclude basic lands
+    // Shuffle the non-basic land cards
+    const shuffledCards = shuffleArray(cardsOfRarity);
+
+
+    // Take the specified number of cards
+    return shuffledCards.slice(0, nrOfCards);
+
 }

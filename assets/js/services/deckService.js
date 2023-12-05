@@ -15,13 +15,25 @@ function getFilteredCardPool(search, types){
 
 
     for(let card of _cardPool) {
-        if(search === "" || card.name.includes(search) || card.rarity.includes(search) || card.card_face.oracle_text.includes(search)) {
-            const result = card.colors.every(val => search.includes(val));
-            if(result) {
-                cards.push(card);
+        if(card.name.includes(search) || card.rarity.includes(search) || card.card_face.oracle_text.includes(search) || card.type_line.includes(search)) {
 
-            } else {
+            if(types.length > 0 && card.colors.length > 0 ) {
+                let colors = card.colors;
+
+                for(let color of colors) {
+                    if(types.includes(color)) {
+                        cards.push(card);
+                        break;
+                    }
+                }
+
+
+
+            } else if(types.length > 0 && card.colors.length === 0 && types.includes('')) {
                 cards.push(card);
+            }
+            else if(types.length === 0)  {
+                cards.push(card)
             }
         }
     }

@@ -108,6 +108,8 @@ function getTypes(manaButtons) {
 function cardsToHTML(cards) {
     let deckBuilding = document.querySelector("#deck-building .popup .container .scrollable");
 
+    defaultSort(cards);
+
     let cardsHtml = "";
     let id = 0;
     for(let card of cards) {

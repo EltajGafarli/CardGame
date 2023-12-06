@@ -54,6 +54,8 @@ function openedBoosters() {
 
     let openedBoosterHTML = "";
 
+    defaultSortBooster(_openedBoosters)
+
     for(const card of booster) {
         openedBoosterHTML += `<li><img class="card"
                                       src="${card.image}"
@@ -73,4 +75,25 @@ function openedBoosters() {
 
 function getOpenedBoosters() {
     return _openedBoosters;
+}
+
+
+function defaultSortBooster(cards) {
+    const rarityOrder = {
+        "rare": 1,
+        "wildcard": 2,
+        "uncommon": 3,
+        "common": 4
+    };
+
+    cards.sort((cardA, cardB) => {
+        const orderA = rarityOrder[cardA.rarity] || Infinity;
+        const orderB = rarityOrder[cardB.rarity] || Infinity;
+
+        if (orderA === orderB) {
+            return cardA.name.localeCompare(cardB.name);
+        }
+
+        return orderA - orderB;
+    });
 }

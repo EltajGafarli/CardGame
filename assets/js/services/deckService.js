@@ -50,7 +50,7 @@ function getFilteredDeck(search, types){
 // Retrieves the complete deck.
 function getDeck(){
     if(_deck.length === 0) {
-        for(let i = 0; i < 8; i ++) {
+        for(let i = 0; i < 9; i ++) {
             _deck.push([])
         }
     }
@@ -98,7 +98,7 @@ function getCardFromPool(cardId){
 }
 
 function getCardFromDeck(cardId){
-    for(let deck of _deck) {
+    for(let deck of getDeck()) {
         for(let card of deck) {
             if(card.id === cardId){
                 return card;
@@ -110,15 +110,19 @@ function getCardFromDeck(cardId){
 }
 
 function moveCardFromPoolToDeck(cardId){
-    let card = _cardPool.find(card => card.id === cardId) || null;
+    let card = getCardFromPool(cardId) || null;
+    if(card == null) {
+        return;
+    }
 
-    _deck[card.cmc - 1].push(card);
+
+    getDeck()[card.cmc].push(card);
     
 }
 
 function moveCardFromDeckToPool(cardId){
     let card = getCardFromDeck(cardId);
-    let row = _deck[card.cmc - 1];
+    let row = getDeck()[card.cmc];
     let index = -1;
     for(let i = 0; i < row.length; i ++) {
         if(row[i].id === card.id) {
@@ -133,7 +137,7 @@ function moveCardFromDeckToPool(cardId){
 }
 
 function getCreatureCount(){
-    
+    _cardPool.find(card => card.type_line)
 }
 
 function getLandCount(){

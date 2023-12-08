@@ -1,6 +1,7 @@
 // ## GIVEN ##
 
 function  initDeckbuildingPage(){
+    changeBackground() // TODO: Added navigation Page
     const deckBuildingBtn = document.getElementById("deckBuildingBtn");
     const cardDetail = document.querySelector(".card-detail")
 
@@ -83,21 +84,35 @@ function renderCardPool(){
 
 function renderDeck(){
 
-    const cardsElement = document.querySelectorAll(".card-pool ul li .card")
+    renderDeckZones();
+
+    let deckCardZone = document.querySelector(".deck ol");
+
+    deckCardZone.addEventListener('mouseover', function (){
+        const cardsFromDeck = document.querySelectorAll(".deck ol li ul li .card");
+        cardsFromDeck.forEach(card => {
+            moveCardToPool(card);
+        })
+    });
+
+
+
+}
+
+function renderDeckZones(){
+    const cardsFromPool = document.querySelectorAll(".card-pool ul li .card")
 
     const deckElement = document.querySelectorAll(".deck ol li ul")
 
     deckElement.forEach(ul => ul.innerHTML = "");
 
 
-    cardsElement.forEach(card => {
+    cardsFromPool.forEach(card => {
         moveCardToDeck(card);
-        });
+    });
 
 
-}
 
-function renderDeckZones(){
 
 }
 
@@ -149,7 +164,11 @@ function moveCardToDeck(e){
 }
 
 function moveCardToPool(e){
-    
+    // let card = document.querySelectorAll(".deck ol li ul li .card");
+    e.addEventListener('click', function () {
+       moveCardFromDeckToPool(e.getAttribute("data-id"));
+       e.classList.add("hidden");
+    });
 }
 
 
@@ -186,3 +205,5 @@ function cardsToHTML(cards) {
 
     deckBuilding.innerHTML = cardsHtml;
 }
+
+

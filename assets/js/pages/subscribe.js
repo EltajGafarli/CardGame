@@ -1,6 +1,7 @@
 // ## GIVEN ##
 
 function initSubscribePage(){
+    changeBackground() // TODO: added Navigation function
     const form = document.querySelector("form");
 
     const $nameInput = document.querySelector("#name");

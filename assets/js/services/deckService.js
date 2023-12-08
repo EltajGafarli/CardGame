@@ -10,40 +10,22 @@ function getFilteredCardPool(search, types){
 
 
     _cardPool = getOpenedBoosters();
-
-    let cards = []
-
-
-    for(let card of _cardPool) {
-        if(card.name.includes(search) || card.rarity.includes(search) || card.card_face.oracle_text.includes(search) || card.type_line.includes(search)) {
-
-            if(types.length > 0 && card.colors.length > 0 ) {
-                let colors = card.colors;
-
-                for(let color of colors) {
-                    if(types.includes(color)) {
-                        cards.push(card);
-                        break;
-                    }
-                }
-
-
-
-            } else if(types.length > 0 && card.colors.length === 0 && types.includes('')) {
-                cards.push(card);
-            }
-            else if(types.length === 0)  {
-                cards.push(card)
-            }
-        }
-    }
-
-
-    return cards;
+    return filterCards(_cardPool, search, types);
 }
 
 // Retrieves a sorted list of cards from the deck, filtered by a search string and types.
 function getFilteredDeck(search, types){
+
+    let filteredDeck = []
+
+    for(let i = 0; i < _deck.length; i ++) {
+        let cards = _deck[i];
+        let filteredCards = filterCards(cards, search, types);
+
+        filteredDeck.push(filteredCards);
+    }
+
+    return filteredDeck;
     
 }
 
@@ -89,8 +71,17 @@ function addCardsToCardPool(cards){
     getCardPool().push(...cards);
 }
 
-function getBiggestManaCostFromCardPool(){    
+function getBiggestManaCostFromCardPool(){
 
+    let cards = _cardPool;
+
+    let maxCMC = 0;
+
+    for(let card of cards) {
+        maxCMC = Math.max(maxCMC, card.cmc)
+    }
+
+    return maxCMC;
 }
 
 function getCardFromPool(cardId){
@@ -122,6 +113,11 @@ function moveCardFromPoolToDeck(cardId){
 
 function moveCardFromDeckToPool(cardId){
     let card = getCardFromDeck(cardId);
+    if(card == null) {
+        return;
+    }
+
+    console.log("FIND FIND");
     let row = getDeck()[card.cmc];
     let index = -1;
     for(let i = 0; i < row.length; i ++) {
@@ -137,31 +133,82 @@ function moveCardFromDeckToPool(cardId){
 }
 
 function getCreatureCount(){
-    _cardPool.find(card => card.type_line)
+    return _cardPool.find(card => card.card_face.type_line.main.includes("Creature")).length;
 }
 
 function getLandCount(){
-    
+    return _cardPool.find(card => card.card_face.type_line.includes("Land")).length;
 }
 
 function getNoneCreatureNoneLandCount(){
-    
+    return _cardPool.find(card => card.card_face.type_line.includes("Creature") && card.card_face.type_line.includes("Land")).length;
 }
 
 // Counts the occurrence of each mana type in the deck.
 function getManasCount(){
-    
+    if (!card.mana_cost) {
+        return null;
+    }
+
+    const manaSymbols = (card.mana_cost.match(/{[A-Z]}/g) || []);
+    const manaCount = {};
+
+    for (const symbol of manaSymbols) {
+        const manaType = symbol.slice(1, -1); // Remove curly braces
+        manaCount[manaType] = (manaCount[manaType] || 0) + 1;
+    }
+
+    return manaCount;
 }
 
 function filterCards(cards, search, types){
-    
+
+    let filteredCardsBySearch = filterCardsBySearch(cards, search);
+    return filterCardsByType(filteredCardsBySearch, types);
+
 }
 
 function filterCardsByType(cards, types){
+    let filteredCards = [];
 
+
+    for(let card of cards) {
+
+        if(types.length > 0 && card.colors.length > 0 ) {
+            let colors = card.colors;
+
+            for(let color of colors) {
+                if(types.includes(color)) {
+                    filteredCards.push(card);
+                    break;
+                }
+            }
+
+
+        } else if(types.length > 0 && card.colors.length === 0 && types.includes('')) {
+            filteredCards.push(card);
+        } else if(types.length === 0)  {
+            filteredCards.push(card)
+        }
+    }
+
+    return filteredCards;
 }
 
 function filterCardsBySearch(cards, search){
+
+    let filteredCards = []
+
+
+    for(let card of cards) {
+        if(card.name.includes(search) || card.rarity.includes(search) || card.card_face.oracle_text.includes(search) || card.type_line.includes(search)) {
+            filteredCards.push(card);
+        }
+    }
+
+
+    return filteredCards;
+
 
 }
 
@@ -184,5 +231,7 @@ function getCategory(card) {
         return "Unknown"; // Adjust this as needed based on your data
     }
 }
+
+
 
 

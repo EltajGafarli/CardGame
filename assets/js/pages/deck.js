@@ -56,7 +56,10 @@ function renderCardPool(){
             cards = getFilteredCardPool(search, types);
 
 
+
             cardsToHTML(cards);
+
+            // renderDeckZones();
         });
     });
 
@@ -72,19 +75,26 @@ function renderCardPool(){
     });
 
 
-    const cardsElement = document.querySelectorAll(".card-pool ul li .card");
+    let cardPool = document.querySelector(".card-pool");
+    cardPool.addEventListener('mouseover', function () {
+        let cardsElement = document.querySelectorAll(".card-pool ul li .card");
+        cardsElement.forEach(card => {
+            card.addEventListener('mouseover', function () {
+                showCardDetail(card);
+            });
 
-    cardsElement.forEach(card => card.addEventListener('mouseover', function (){
-        showCardDetail(card);
-    }));
+            moveCardToDeck(card);
+        });
+    })
 
+    // renderDeck();
 
 
 }
 
 function renderDeck(){
 
-    renderDeckZones();
+
 
     let deckCardZone = document.querySelector(".deck ol");
 
@@ -95,21 +105,54 @@ function renderDeck(){
         })
     });
 
+    renderDeckZones();
+
 
 
 }
 
 function renderDeckZones(){
-    const cardsFromPool = document.querySelectorAll(".card-pool ul li .card")
+
 
     const deckElement = document.querySelectorAll(".deck ol li ul")
 
     deckElement.forEach(ul => ul.innerHTML = "");
 
+    let decks = getDeck();
 
-    cardsFromPool.forEach(card => {
-        moveCardToDeck(card);
-    });
+    // let cardId = e.getAttribute("data-id");
+    // let cardById = getCardFromPool(cardId);
+    //
+    // let cmc = Number.parseInt(cardById.cmc)
+
+
+    // let cards = deck[cmc];
+    // let id = 0;
+
+
+
+
+    for(let i = 0; i < decks.length; i ++) {
+        let cardsHtml = "";
+        let id = 0;
+        let cmc = 0;
+
+        for(let card of decks[i]) {
+            cardsHtml += `<li><img class="card"
+                                   src="${card.image}"
+                                   alt="${card.name}" title="${card.name}"
+                                   data-id="${card.id}"
+                                  data-sequence-id="${id}"></li>`
+            id ++;
+            cmc = card.cmc;
+        }
+
+        cardsHtml = `<h4>${cmc}</h4> <ul>${cardsHtml}</ul>`;
+        const liElementsWithSpecificCmc = document.querySelector(`ol.cards.container.scrollable li[data-cmc="${cmc}"]`);
+        liElementsWithSpecificCmc.innerHTML = cardsHtml;
+
+    }
+
 
 
 
@@ -126,39 +169,13 @@ function showCardDetail(e){
 }
 
 function moveCardToDeck(e){
-    let deck = getDeck();
     e.addEventListener('click', function (){
-
-        deck = getDeck();
-
-        let cardId = e.getAttribute("data-id");
-        let cardById = getCardFromPool(cardId);
-
-        let cmc = Number.parseInt(cardById.cmc)
-
-
-        let cards = deck[cmc];
-        let id = 0;
-
-        let cardsHtml = "";
-
-        for(let card of cards) {
-            cardsHtml += `<li><img class="card"
-                                       src="${card.image}"
-                                       alt="${card.name}" title="${card.name}"
-                                       data-id="${card.id}"
-                                      data-sequence-id="${id}"></li>`
-            id ++;
-        }
-
-        cardsHtml = `<h4>${cmc}</h4> <ul>${cardsHtml}</ul>`;
-
-        const liElementsWithSpecificCmc = document.querySelector(`ol.cards.container.scrollable li[data-cmc="${cmc}"]`);
-        liElementsWithSpecificCmc.innerHTML = cardsHtml;
 
         moveCardFromPoolToDeck(e.getAttribute("data-id"));
 
+
     })
+
 
 
 }

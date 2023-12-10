@@ -9,7 +9,7 @@ function initStatsPage(){
     manaStats();
 
 
-    backButton();
+
 
     // stats.classList.remove("hidden")
 }
@@ -132,6 +132,15 @@ function getManaFromManas(manasCount, mana) {
 function backButton() {
 
     const stats = document.getElementById("stats")
+
+    let statsBackBtn = document.getElementById("stats-back-btn");
+    let deckBuilding = document.getElementById("deck-building");
+
+    statsBackBtn.addEventListener('click', function (){
+       stats.classList.toggle("hidden");
+       deckBuilding.classList.toggle("hidden");
+    });
+
 
 }
 

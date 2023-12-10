@@ -29,6 +29,13 @@ function  initDeckbuildingPage(){
         initStatsPage();
     })
 
+    backButton();
+
+    let submitDeckBtn = document.getElementById("submit-deck-btn");
+    submitDeckBtn.addEventListener('click', function (){
+       initThankYouPage();
+    });
+
 
 }
 

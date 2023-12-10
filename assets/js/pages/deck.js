@@ -3,7 +3,9 @@
 function  initDeckbuildingPage(){
     changeBackground() // TODO: Added navigation Page
     const deckBuildingBtn = document.getElementById("deckBuildingBtn");
-    const cardDetail = document.querySelector(".card-detail")
+    const cardDetail = document.querySelector(".card-detail");
+
+    const showStatsButton = document.getElementById("show-stats-btn");
 
     deckBuildingBtn.addEventListener('click', function () {
         let attribute = deckBuildingBtn.getAttribute("data-target");
@@ -20,6 +22,12 @@ function  initDeckbuildingPage(){
         renderCardPool();
         emptyDeck();
     });
+
+
+    showStatsButton.addEventListener('click', function () {
+        document.getElementById("deck-building").classList.toggle("hidden");
+        initStatsPage();
+    })
 
 
 }

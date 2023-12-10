@@ -137,30 +137,82 @@ function moveCardFromDeckToPool(cardId){
 
 }
 
+
+
 function getCreatureCount(){
-    return _cardPool.find(card => card.card_face.type_line.main.includes("Creature")).length;
+    let count = 0;
+
+    for(let deck of _deck) {
+        for(let card of deck) {
+            if(card.card_face.type_line.main.includes("Creature")) {
+                count ++;
+            }
+        }
+    }
+
+    return count;
 }
 
 function getLandCount(){
-    return _cardPool.find(card => card.card_face.type_line.includes("Land")).length;
+    let count = 0;
+
+    for(let deck of _deck) {
+        for(let card of deck) {
+            if(card.card_face.type_line.main.includes("Land")) {
+                count ++;
+            }
+        }
+    }
+
+    return count;
+    // return _cardPool.find(card => card.card_face.type_line.includes("Land")).length;
 }
 
 function getNoneCreatureNoneLandCount(){
-    return _cardPool.find(card => card.card_face.type_line.includes("Creature") && card.card_face.type_line.includes("Land")).length;
+    let count = 0;
+
+    for(let deck of _deck) {
+        for(let card of deck) {
+            if(!card.card_face.type_line.main.includes("Land") && !card.card_face.type_line.main.includes("Creature")) {
+                count ++;
+            }
+        }
+    }
+
+    return count;
+    // return _cardPool.find(card => card.card_face.type_line.includes("Creature") && card.card_face.type_line.includes("Land")).length;
 }
 
 // Counts the occurrence of each mana type in the deck.
 function getManasCount(){
-    if (!card.mana_cost) {
-        return null;
-    }
+    // if (!card.mana_cost) {
+    //     return null;
+    // }
+    //
+    // const manaSymbols = (card.mana_cost.match(/{[A-Z]}/g) || []);
+    // const manaCount = {};
+    //
+    // for (const symbol of manaSymbols) {
+    //     const manaType = symbol.slice(1, -1); // Remove curly braces
+    //     manaCount[manaType] = (manaCount[manaType] || 0) + 1;
+    // }
 
-    const manaSymbols = (card.mana_cost.match(/{[A-Z]}/g) || []);
-    const manaCount = {};
+    const manaCount = {}
 
-    for (const symbol of manaSymbols) {
-        const manaType = symbol.slice(1, -1); // Remove curly braces
-        manaCount[manaType] = (manaCount[manaType] || 0) + 1;
+    for(let deck of _deck) {
+        for(let card of deck) {
+
+            let colors = card.colors;
+
+            if(colors.length === 0) {
+                manaCount["colorless"] = (manaCount["colorless"] || 0) + 1;
+                break;
+            }
+
+            for(let color of colors) {
+                manaCount[color] = (manaCount[color] || 0) + 1;
+            }
+        }
     }
 
     return manaCount;

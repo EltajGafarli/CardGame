@@ -101,13 +101,19 @@ function getCardFromDeck(cardId){
 }
 
 function moveCardFromPoolToDeck(cardId){
+
+
     let card = getCardFromPool(cardId) || null;
     if(card == null) {
         return;
     }
 
+    console.log(card.cmc)
 
     getDeck()[card.cmc].push(card);
+
+    // console.log(getDeck());
+
     
 }
 
@@ -117,7 +123,6 @@ function moveCardFromDeckToPool(cardId){
         return;
     }
 
-    console.log("FIND FIND");
     let row = getDeck()[card.cmc];
     let index = -1;
     for(let i = 0; i < row.length; i ++) {

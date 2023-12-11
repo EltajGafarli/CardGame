@@ -3,15 +3,23 @@
 const NR_OF_BACKGROUNDS = 3;
 
 function initNavigation(){
-    
+    initSubscribePage();
+    const deckBuildingBtn = document.getElementById("deckBuildingBtn");
+    navigate(deckBuildingBtn);
 }
 
 function navigate(e){
-
+    e.addEventListener('click', function (){
+        e.classList.toggle("hidden");
+        let dataTarget = e.getAttribute("data-target");
+        navigateToPage(dataTarget);
+    });
 }
 
 function navigateToPage(targetId){
-
+    if(targetId === "deck-building") {
+        initDeckbuildingPage();
+    }
 }
 
 
@@ -25,7 +33,7 @@ function changeBackground() {
 
     let size = bodyClasses.length;
 
-    let randomNumber = getRandomNumber(size - 1);
+    let randomNumber = getRandomNumber(NR_OF_BACKGROUNDS - 1);
 
     let currentClass = body.classList.item(0);
 

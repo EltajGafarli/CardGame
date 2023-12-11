@@ -7,7 +7,7 @@ function  initDeckbuildingPage(){
 
     const showStatsButton = document.getElementById("show-stats-btn");
 
-    deckBuildingBtn.addEventListener('click', function () {
+    // deckBuildingBtn.addEventListener('click', function () {
         let attribute = deckBuildingBtn.getAttribute("data-target");
         let boosters = document.getElementById("boosters");
 
@@ -21,7 +21,7 @@ function  initDeckbuildingPage(){
         }
         renderCardPool();
         emptyDeck();
-    });
+    // });
 
 
     showStatsButton.addEventListener('click', function () {

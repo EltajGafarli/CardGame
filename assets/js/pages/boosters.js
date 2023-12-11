@@ -14,7 +14,7 @@ const _MAX_BOOSTER_VERSIONS = 3;
 
 function initBoostersPage(){
 
-    changeBackground(); // TODO: Added navigate function
+    changeBackground();
     const set = localStorage.getItem('set');
     const boosters = localStorage.getItem('boosters');
 

@@ -112,7 +112,6 @@ function moveCardFromPoolToDeck(cardId){
 
     getDeck()[card.cmc].push(card);
 
-    // console.log(getDeck());
 
     
 }
@@ -165,7 +164,6 @@ function getLandCount(){
     }
 
     return count;
-    // return _cardPool.find(card => card.card_face.type_line.includes("Land")).length;
 }
 
 function getNoneCreatureNoneLandCount(){
@@ -180,22 +178,11 @@ function getNoneCreatureNoneLandCount(){
     }
 
     return count;
-    // return _cardPool.find(card => card.card_face.type_line.includes("Creature") && card.card_face.type_line.includes("Land")).length;
 }
 
 // Counts the occurrence of each mana type in the deck.
 function getManasCount(){
-    // if (!card.mana_cost) {
-    //     return null;
-    // }
-    //
-    // const manaSymbols = (card.mana_cost.match(/{[A-Z]}/g) || []);
-    // const manaCount = {};
-    //
-    // for (const symbol of manaSymbols) {
-    //     const manaType = symbol.slice(1, -1); // Remove curly braces
-    //     manaCount[manaType] = (manaCount[manaType] || 0) + 1;
-    // }
+
 
     const manaCount = {}
 
@@ -285,7 +272,7 @@ function getCategory(card) {
     } else if (card.colors.length > 1) {
         return "Multicolor";
     } else {
-        return "Unknown"; // Adjust this as needed based on your data
+        return "Unknown";
     }
 }
 

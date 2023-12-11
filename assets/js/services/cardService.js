@@ -66,19 +66,15 @@ function getBooster(){
 
 // Selects a random set of cards based on rarity. It ensures that no duplicates or basic land  are included .
 function getRandomCards(rarity, nrOfCards){
-    // Filter cards based on rarity
     const cardsOfRarityObject = getCardListByRarity();
     const cardsOfRarity = cardsOfRarityObject[rarity] || [];
 
 
-    // Exclude basic lands
     const nonBasicLandCards = cardsOfRarity.filter(card => !isBasicLand(card));
 
-    // Shuffle the non-basic land cards
     const shuffledCards = shuffleArray(nonBasicLandCards);
 
 
-    // Take the specified number of cards
     return shuffledCards.slice(0, nrOfCards);
 
 }
@@ -86,14 +82,11 @@ function getRandomCards(rarity, nrOfCards){
 // Organizes all cards from _cards by their rarity. If this has been done before, it returns the previously created list.
 function getCardListByRarity() {
     if (_rarityList) {
-        // If the rarity list has already been created, return it
         return _rarityList;
     }
 
-    // If the rarity list doesn't exist, create and return it
     const rarityList = {};
 
-    // Group cards by rarity
     _cards.forEach(card => {
         const rarity = card.rarity;
         if (!rarityList[rarity]) {
@@ -102,7 +95,6 @@ function getCardListByRarity() {
         rarityList[rarity].push(card);
     });
 
-    // Save the created rarity list for future use
     _rarityList = rarityList;
 
     return rarityList;
@@ -122,7 +114,6 @@ function getBasicLands() {
 // ## YOUR ADDED FUNCTIONS ##
 
 
-// Helper function to shuffle an array
 function shuffleArray(array) {
     const shuffledArray = [...array];
     for (let i = shuffledArray.length - 1; i > 0; i--) {
@@ -143,12 +134,9 @@ function getRandomBooster(rarity, nrOfCards) {
     const cardsOfRarity = cardsOfRarityObject[rarity] || [];
 
 
-    // Exclude basic lands
-    // Shuffle the non-basic land cards
     const shuffledCards = shuffleArray(cardsOfRarity);
 
 
-    // Take the specified number of cards
     return shuffledCards.slice(0, nrOfCards);
 
 }

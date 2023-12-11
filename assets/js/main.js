@@ -3,12 +3,6 @@
 document.addEventListener('DOMContentLoaded', init);
 
 function init(){
-    // initSubscribePage();
-    //
-    //
-    // // initStatsPage()
-    // initDeckbuildingPage()
-
     initNavigation();
 
 

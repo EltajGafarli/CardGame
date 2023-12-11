@@ -11,7 +11,6 @@ function initSubscribePage() {
     form.addEventListener('submit', function (event) {
         event.preventDefault();
 
-        // Validate input values before storing in localStorage
         if (validateForm()) {
             localStorage.setItem('name', $nameInput.value);
             localStorage.setItem('birthdate', $birthdateInput.value);
@@ -26,13 +25,11 @@ function initSubscribePage() {
     });
 
     function validateForm() {
-        // Simple validation example
         const name = $nameInput.value.trim();
         const birthdate = $birthdateInput.value.trim();
         const email = $emailInput.value.trim();
         const boosters = $boostersInput.value.trim();
 
-        // Regular expression for a valid email format
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!name || !birthdate || !email || !boosters) {
@@ -40,13 +37,11 @@ function initSubscribePage() {
             return false;
         }
 
-        // Check if the email format is valid
         if (!emailRegex.test(email)) {
             alert("Please enter a valid email address.");
             return false;
         }
 
-        // Check if the birthdate is in a valid format (you can customize the regex as needed)
         const birthdateRegex = /^\d{4}-\d{2}-\d{2}$/;
         if (!birthdateRegex.test(birthdate)) {
             alert("Please enter a valid birthdate (YYYY-MM-DD).");

@@ -11,7 +11,6 @@ function initStatsPage(){
 
 
 
-    // stats.classList.remove("hidden")
 }
 
 
